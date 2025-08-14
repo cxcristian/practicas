@@ -38,16 +38,22 @@ rl.question(
 */ 
 
 //metodo optimizado
-rl.question("Retiros multiplos de 10.000", (respuesta)=>{
+rl.question("Retiros multiplos de 10.000: ", (respuesta)=>{
     let restante = parseInt(respuesta)
     const billetes = [50000,20000,10000]
+    let conteo = {50000:0,20000:0,10000:0}
     console.log("se solicitaron ", restante)
     for(let billete of billetes){
         while(billete <= restante){
             restante -= billete
+            conteo[billete]++
             console.log("se pagaron: ",billete, " falta: ", restante)
         }
     }
+    for(let billete of billetes){
+      console.log("se usaron: ", conteo[billete], " de ", billete)
+    }
+
     console.log("retiro completo")
     rl.close()
 })
