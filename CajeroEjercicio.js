@@ -59,28 +59,43 @@ rl.question("Ingrese el valor a retirar (multiplo de 10000)", (respuesta) => {
   rl.close();
 });
 */
+
+//Inicializacion de la pregunta con rl question, se guarda la respuesta como variable
 rl.question("Ingrese el valor a retirar (multiplo de 10000)", (respuesta) => {
+  //la respuesta se parsea y se guarda en otra variable
   let restante = parseInt(respuesta);
+  //array con los billetes disponibles
   const billetes = [50000, 20000, 10000];
+  //objeto el cual se usara para guardar la cantidad de veces que se uso un billete, en el valor de la clave
   const conteos = { 50000: 0, 20000: 0, 10000: 0 };
-  if(restante % 10000 !== 0){
-    console.log("error no es multiplo de 10000")
-    rl.close()
+
+  //Si nuestro restante no es multiplo de 10000, se cierra el programa
+  if (restante % 10000 !== 0) {
+    console.log("error no es multiplo de 10000");
+    rl.close();
   }
 
-  for(let billete of billetes){
-    let limite = 30
-    if(billete === 50000 && restante>200000){
-        limite = 3
+  //por cada indice de nuestro array se va a guardar ese valor en billete
+  for (let billete of billetes) {
+    //variable la cual en cada iteracion de for se re establece en 30
+    let limite = 30;
+    //si el usuario pide mas de 200k y estamos en la primera iteracion es decir 50k 
+    //Entonces el limite tendra el valor de 3, es decir solo le podremos dar 3 billetes de 50k maximo
+    if (billete === 50000 && restante > 200000) {
+      limite = 3;
     }
-
-    while(restante >= billete && conteos[billete]<limite){
-        restante -= billete
-        conteos[billete]++ 
+    //Si restante es menor a billete y ademas el valor del conteo es menor al limite entoces
+    //se restara y se le sumara el valor a la clave segun sea el valor de billete en cada iteracion
+    while (restante >= billete && conteos[billete] < limite) {
+      restante -= billete;
+      conteos[billete]++;
     }
   }
-  for(let billete of billetes){
-    console.log("se pagaron: ", conteos[billete], " billetes de: ", billete)
+  //ahora volvemos a recorrer billetes, segun la iteracion y el este ira a
+  //la variable conteo, buscara cual tiene la clave igual a la de billete (50000,20000,10000) y escribira el valor de esta
+  for (let billete of billetes) {
+    console.log("se pagaron: ", conteos[billete], " billetes de: ", billete);
   }
-  rl.close()
+  //fin
+  rl.close();
 });
